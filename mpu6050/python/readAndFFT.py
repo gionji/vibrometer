@@ -3,7 +3,7 @@
 
 from mpu6050 import mpu6050
 
-#import numpy as np
+import numpy as np
 import argparse
 import sys
 import time
@@ -43,3 +43,11 @@ print('Effective frequency: ', int(1/((endTime - startTime) / n_samples)) , ' Hz
 
 if(print_data):
 	print( data )
+
+data = np.asarray(data).reshape((-1, 3))
+
+fft = np.fft.fft(data)
+
+print(fft)
+
+

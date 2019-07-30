@@ -79,17 +79,18 @@ class mpu6050:
 	def read_sample(self):
 
 		# Read accelerometer data in bulk
-		return self.bus.read_i2c_block_data(self.device_addr, ACCEL_XOUT_H, 6)
+		return self.bus.read_i2c_block_data(self.device_addr, GYRO_XOUT_H, 6)
 
 
-	def read_data(self, n_samples=1000):
+
+	def read_data(self, n_samples=1024):
 
 		data = []
 		# Read Accelerometer values
 		for i in range(n_samples):
 			row = self.read_sample()
-			data.append(row)
-
+			data.append(row)	
+	
 		# Concatenate higher and lower values AND get signed values
 		data = [[self.combine(x_h, x_l),
                  self.combine(y_h, y_l),

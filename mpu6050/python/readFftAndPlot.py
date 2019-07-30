@@ -3,10 +3,11 @@
 
 from mpu6050 import mpu6050
 
-#import numpy as np
+import numpy as np
 import argparse
 import sys
 import time
+from matplotlib import pyplot as plt 
 
 arg_parser = argparse.ArgumentParser(sys.argv[0])
 arg_parser.add_argument('-n', '--num-samples', dest='num_samples', required=False, default=1000, help='Number of samples to collect.', type=int)
@@ -43,3 +44,13 @@ print('Effective frequency: ', int(1/((endTime - startTime) / n_samples)) , ' Hz
 
 if(print_data):
 	print( data )
+
+data = np.asarray(data).reshape((-1, 3))
+
+fft = np.fft.fft(data)
+
+plt.plot(fft)
+plt.show()
+
+
+
